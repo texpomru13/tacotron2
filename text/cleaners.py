@@ -15,7 +15,10 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
 import re
 from unidecode import unidecode
 from .numbers import normalize_numbers
+from russtress import Accent
 
+
+accent = Accent()
 
 # Regular expression matching whitespace:
 _whitespace_re = re.compile(r'\s+')
@@ -69,6 +72,7 @@ def basic_cleaners(text):
   '''Basic pipeline that lowercases and collapses whitespace without transliteration.'''
   text = lowercase(text)
   text = collapse_whitespace(text)
+  text = accent.put_stress(text)
   return text
 
 
